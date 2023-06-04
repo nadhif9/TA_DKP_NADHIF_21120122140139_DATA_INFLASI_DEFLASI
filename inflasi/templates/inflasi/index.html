@@ -1,0 +1,124 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% load static %}  
+    <link href="{% static 'mui.min.css' %}" rel="stylesheet" type="text/css" />
+    <script src="{% static 'mui.min.js' %}"></script>
+    <style>
+/**
+ * Body CSS
+ */
+ html,
+body {
+  height: 100%;
+}
+
+html,
+body,
+input,
+textarea,
+button {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.004);
+}
+
+
+/**
+ * Sidebar CSS
+ */
+#sidebar {
+  background-color: #E57373;
+  padding: 15px;
+}
+
+.Inflasi {
+  background-color : #F44336;
+  color : #FFFFFF;
+}
+
+.Deflasi {
+  background-color : #62f436;
+  color : #FFFFFF;
+}
+
+@media (min-width: 768px) {
+  #sidebar {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: 180px;
+    height: 100%;
+    padding-top: 30px;
+  }
+}
+
+/**
+ * Content CSS
+ */
+@media (min-width: 768px) {
+  #content {
+    margin-left: 180px;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <div id="sidebar">
+        <div class="mui--text-light mui--text-display1 mui--align-vertical"> Data <br> Inflasi <br> Deflasi</div>
+      </div>
+      <div id="content" class="mui-container-fluid">
+        <div class="mui-row">
+            <div class="mui-col-sm-10 mui-col-sm-offset-1">
+              <br>
+              <br>
+              <div class="mui--text-dark-secondary mui--text-body2">POSTINGAN TERBARU</div>
+              <div class="mui-divider"></div>
+              <br>
+          {% if latest_Barang_list %}
+              {% for barang in latest_Barang_list %}
+                  {% if forloop.first %}
+                  <div class="{{barang.Inflasi_Deflasi }} mui--text-headline">{{ barang.nama_barang }}</div>
+                  <div class="mui--text-dark-secondary">Oleh <a href="#">Admin</a> diupload {{barang.dibuat}}</div>
+                  <div>
+                      Harga Lama : {{ barang.harga_barangf }}<br> 
+                      Harga Baru : {{ barang.harga_barang2f }}<br> 
+                      {{barang.Inflasi_Deflasi }} : {{ barang.Hitung_Inflasi }}%<br>
+                  </div>
+                  {%endif%}
+              {% endfor %}
+          {% else %}
+              <p>Tidak ada barang dimasukan</p>
+          {% endif %}
+
+              <br>
+              <br>
+              <div class="mui--text-dark-secondary mui--text-body2">POSTINGAN BELAKANGAN INI</div>
+              <div class="mui-divider"></div>
+              <br>
+          {% if latest_Barang_list %}
+              {% for barang in latest_Barang_list %}
+              {% if not forloop.first %}
+                <div class="{{barang.Inflasi_Deflasi }} mui--text-headline">{{ barang.nama_barang }}</div>
+                <div class="mui--text-dark-secondary">Oleh <a href="#">Admin</a> diupload {{barang.dibuat}}</div>
+                <div>
+                    Harga Lama : {{ barang.harga_barangf }}<br> 
+                    Harga Baru : {{ barang.harga_barang2f }}<br> 
+                    {{barang.Inflasi_Deflasi }} : {{ barang.Hitung_Inflasi }}%<br>
+                </div>
+                <br>
+              {%endif%}
+              {% endfor %}
+          {% else %}
+              <p>Tidak ada barang dimasukan</p>
+          {% endif %}
+              <br>
+              <!-- blog goes here -->
+            </div>
+          </div>
+      </div>
+  </body>
+</html>
